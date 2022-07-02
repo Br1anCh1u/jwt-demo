@@ -48,6 +48,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void register(CustomerRegisterRequest request) {
+
+        if(dao.getCustomerById(request.getId())!=null || dao.getCustomerByEmail(request.getEmail())!=null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
         dao.insertCustomer(request);
     }
 }

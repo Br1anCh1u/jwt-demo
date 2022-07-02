@@ -15,4 +15,6 @@ public interface CustomerDao {
     Customer getCustomerByEmail(String email);
 
     void insertCustomer(CustomerRegisterRequest request);
+
+    Customer getCustomerById(String id);
 }

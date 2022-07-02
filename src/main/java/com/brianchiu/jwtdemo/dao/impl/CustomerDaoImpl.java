@@ -78,4 +78,20 @@ public class CustomerDaoImpl implements CustomerDao {
         namedParameterJdbcTemplate.update(sql, map);
 
     }
+
+    @Override
+    public Customer getCustomerById(String id) {
+
+        String sql = "SELECT id, phone, email, password, name, gender, birthday, address, subscribed, discount, role FROM customers WHERE id = :id";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+
+        List<Customer> list = namedParameterJdbcTemplate.query(sql, map, new CustomerRowMapper());
+        if(list.size()>0){
+            return list.get(0);
+        } else {
+            return null;
+        }
+    }
 }
