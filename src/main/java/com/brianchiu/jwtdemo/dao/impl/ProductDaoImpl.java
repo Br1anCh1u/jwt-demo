@@ -2,7 +2,7 @@ package com.brianchiu.jwtdemo.dao.impl;
 
 import com.brianchiu.jwtdemo.dao.ProductDao;
 import com.brianchiu.jwtdemo.dto.ProductQueryParams;
-import com.brianchiu.jwtdemo.dto.ProductRequest;
+import com.brianchiu.jwtdemo.dto.ProductInsertRequest;
 import com.brianchiu.jwtdemo.entity.Product;
 import com.brianchiu.jwtdemo.rowmapper.ProductRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +43,7 @@ public class ProductDaoImpl implements ProductDao {
 
         List<Product> list = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
+        System.out.println(sql);
         return list;
     }
 
@@ -58,6 +59,7 @@ public class ProductDaoImpl implements ProductDao {
 
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
+        System.out.println(sql);
         return total;
     }
 
@@ -71,6 +73,8 @@ public class ProductDaoImpl implements ProductDao {
         map.put("id", productId);
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
+
+        System.out.println(sql);
         if (productList.size() > 0) {
             return productList.get(0);
         } else {
@@ -79,25 +83,26 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Integer createProduct(ProductRequest productRequest) {
+    public Integer createProduct(ProductInsertRequest productInsertRequest) {
 
         String sql = "INSERT INTO products(name, unit_price, stock, description, photo_url, brand, discount, type, shelf_date) VALUES" +
                 " (:name, :unitPrice, :stock, :description, :photoUrl, :brand, :discount, :type, curdate())";
 
         Map<String, Object> map = new HashMap<>();
-        map.put("name", productRequest.getName());
-        map.put("unitPrice", productRequest.getUnitPrice());
-        map.put("stock", productRequest.getStock());
-        map.put("description", productRequest.getDescription());
-        map.put("photoUrl", productRequest.getPhotoUrl());
-        map.put("brand", productRequest.getBrand());
-        map.put("discount", productRequest.getDiscount());
-        map.put("type", productRequest.getType());
+        map.put("name", productInsertRequest.getName());
+        map.put("unitPrice", productInsertRequest.getUnitPrice());
+        map.put("stock", productInsertRequest.getStock());
+        map.put("description", productInsertRequest.getDescription());
+        map.put("photoUrl", productInsertRequest.getPhotoUrl());
+        map.put("brand", productInsertRequest.getBrand());
+        map.put("discount", productInsertRequest.getDiscount());
+        map.put("type", productInsertRequest.getType());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
         int productId = keyHolder.getKey().intValue();
 
+        System.out.println(sql);
         return productId;
     }
 

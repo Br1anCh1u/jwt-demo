@@ -1,8 +1,10 @@
 package com.brianchiu.jwtdemo.service.impl;
 
 import com.brianchiu.jwtdemo.dao.CustomerDao;
+import com.brianchiu.jwtdemo.dto.CustomerForgetRequest;
 import com.brianchiu.jwtdemo.dto.CustomerLoginRequest;
 import com.brianchiu.jwtdemo.dto.CustomerRegisterRequest;
+import com.brianchiu.jwtdemo.dto.CustomerUpdatePasswordRequest;
 import com.brianchiu.jwtdemo.entity.Customer;
 import com.brianchiu.jwtdemo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +56,37 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         dao.insertCustomer(request);
+    }
+
+    @Override
+    public Customer getCustomerByIdAndEmail(CustomerForgetRequest request) {
+        return dao.getCustomerByIdAndEmail(request);
+    }
+
+    @Override
+    public boolean insertCustomerForgetPassword(String id, String email, String uuid) {
+
+        int count = dao.countCustomerForgetPasswordByIdAndEmail(id, email);
+
+        if(count == 0){
+            dao.insertCustomerForgetPassword(id, email, uuid);
+            return true;
+        } else if (count==1) {
+            dao.updateCustomerForgetPassword(id, email, uuid);
+            return true;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Override
+    public Customer getCustomerByUUID(String uuid) {
+        return dao.getCustomerByUUID(uuid);
+    }
+
+    @Override
+    public Customer updatePasswordById(CustomerUpdatePasswordRequest request) {
+        dao.updatePasswordById(request);
+        return dao.getCustomerById(request.getId());
     }
 }

@@ -1,9 +1,8 @@
 package com.brianchiu.jwtdemo.dto;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
-public class ProductRequest {
+public class ProductInsertRequest {
 
     @NotNull
     private String name;
@@ -18,7 +17,7 @@ public class ProductRequest {
     private int discount;
     private String type;
 
-    public ProductRequest() {
+    public ProductInsertRequest() {
     }
 
     public String getName() {

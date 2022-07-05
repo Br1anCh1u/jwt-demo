@@ -1,7 +1,7 @@
 package com.brianchiu.jwtdemo.dao;
 
 import com.brianchiu.jwtdemo.dto.ProductQueryParams;
-import com.brianchiu.jwtdemo.dto.ProductRequest;
+import com.brianchiu.jwtdemo.dto.ProductInsertRequest;
 import com.brianchiu.jwtdemo.entity.Product;
 
 import java.util.List;
@@ -14,5 +14,5 @@ public interface ProductDao {
 
     Product getProductById(Integer productId);
 
-    Integer createProduct(ProductRequest productRequest);
+    Integer createProduct(ProductInsertRequest productInsertRequest);
 }

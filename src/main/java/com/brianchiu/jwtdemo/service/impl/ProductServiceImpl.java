@@ -2,7 +2,7 @@ package com.brianchiu.jwtdemo.service.impl;
 
 import com.brianchiu.jwtdemo.dao.ProductDao;
 import com.brianchiu.jwtdemo.dto.ProductQueryParams;
-import com.brianchiu.jwtdemo.dto.ProductRequest;
+import com.brianchiu.jwtdemo.dto.ProductInsertRequest;
 import com.brianchiu.jwtdemo.entity.Product;
 import com.brianchiu.jwtdemo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer createProduct(ProductRequest productRequest) {
-        return productDao.createProduct(productRequest);
+    public Integer createProduct(ProductInsertRequest productInsertRequest) {
+        return productDao.createProduct(productInsertRequest);
     }
 }

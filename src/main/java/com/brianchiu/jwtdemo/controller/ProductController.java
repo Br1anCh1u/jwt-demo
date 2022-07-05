@@ -1,7 +1,7 @@
 package com.brianchiu.jwtdemo.controller;
 
 import com.brianchiu.jwtdemo.dto.ProductQueryParams;
-import com.brianchiu.jwtdemo.dto.ProductRequest;
+import com.brianchiu.jwtdemo.dto.ProductInsertRequest;
 import com.brianchiu.jwtdemo.entity.Product;
 import com.brianchiu.jwtdemo.service.ProductService;
 import com.brianchiu.jwtdemo.util.Page;
@@ -70,9 +70,9 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
-        Integer productId = productService.createProduct(productRequest);
+    @PostMapping("/products/insertProduct")
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductInsertRequest productInsertRequest) {
+        Integer productId = productService.createProduct(productInsertRequest);
 
         Product product = productService.getProductById(productId);
 
